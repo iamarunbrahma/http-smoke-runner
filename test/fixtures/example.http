@@ -1,0 +1,27 @@
+@baseUrl = http://127.0.0.1:{{$processEnv HSR_TEST_PORT}}
+
+### health
+GET {{baseUrl}}/health
+# expect status 200
+# expect body contains "ok"
+
+### list users
+GET {{baseUrl}}/users
+# expect status 200
+# expect body path $[0].id exists
+
+### create user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{"name":"Ada"}
+# expect status 201
+# expect body path $.name equals "Ada"
+
+### deliberate failure
+POST {{baseUrl}}/users
+Content-Type: application/json
+X-Fail: 1
+
+{}
+# expect status 201

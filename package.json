@@ -1,0 +1,109 @@
+{
+  "name": "http-smoke-runner",
+  "displayName": "HTTP Smoke Runner",
+  "description": "Run .http and .rest files like smoke tests — pass/fail, latency, jump-to-failure, directly in VS Code.",
+  "publisher": "arunbrahma",
+  "version": "0.0.1",
+  "private": false,
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0",
+    "node": ">=20.15.0"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "keywords": [
+    "http",
+    "rest",
+    "api",
+    "test",
+    "smoke",
+    "rest-client",
+    ".http",
+    ".rest"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamarunbrahma/http-smoke-runner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iamarunbrahma/http-smoke-runner/issues"
+  },
+  "main": "./dist/extension.js",
+  "icon": "media/icon.png",
+  "activationEvents": [
+    "onLanguage:http",
+    "onLanguage:rest",
+    "workspaceContains:**/*.http",
+    "workspaceContains:**/*.rest"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "httpSmokeRunner.runFile",
+        "title": "HTTP Smoke: Run File"
+      },
+      {
+        "command": "httpSmokeRunner.runWorkspace",
+        "title": "HTTP Smoke: Run Workspace"
+      },
+      {
+        "command": "httpSmokeRunner.runRequest",
+        "title": "HTTP Smoke: Run Request"
+      }
+    ],
+    "configuration": {
+      "title": "HTTP Smoke Runner",
+      "properties": {
+        "httpSmokeRunner.requestTimeoutMs": {
+          "type": "number",
+          "default": 30000,
+          "description": "Per-request timeout in milliseconds."
+        },
+        "httpSmokeRunner.loadDotenv": {
+          "type": "boolean",
+          "default": true,
+          "description": "Resolve {{$dotenv VAR}} from a .env file in the workspace root."
+        },
+        "httpSmokeRunner.redactedHeaders": {
+          "type": "array",
+          "default": [
+            "authorization",
+            "cookie",
+            "set-cookie",
+            "x-api-key",
+            "api-key",
+            "x-auth-token",
+            "proxy-authorization"
+          ],
+          "description": "Header names whose values are redacted in Test Output."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/**/*.test.ts",
+    "test:e2e": "npm run build && npm run build:test && node dist-test/integration/runExtensionTests.js",
+    "build:test": "tsc -p tsconfig.test.json",
+    "package": "vsce package",
+    "vscode:prepublish": "npm run typecheck && npm run build",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^20.15.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.2.0",
+    "esbuild": "^0.24.0",
+    "globby": "^14.0.2",
+    "mocha": "^10.7.3",
+    "playwright": "^1.59.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.3"
+  }
+}

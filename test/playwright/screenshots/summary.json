@@ -1,0 +1,101 @@
+{
+  "passed": 11,
+  "failed": 0,
+  "total": 11,
+  "results": [
+    {
+      "label": "window title indicates Extension Dev Host",
+      "value": "[Extension Development Host] hsr-playwright-zXM21h",
+      "ok": true
+    },
+    {
+      "label": "page log confirms our extension loaded",
+      "value": "[log] %c INFO color: #33f Started initializing default profile extensions in extensions installation folder. file:///var/folders/js/nf3pspjn50ncg5_p5285npsm0000gn/T/hsr-pw-exts-aeY1lG\n[log] %c INFO color: #33f Completed initializing default profile extensions in extensions installation folder. file:///var/folders/js/nf3pspjn50ncg5_p5285npsm0000gn/T/hsr-pw-exts-aeY1lG\n[log] %c INFO color: #33f Loading development extension at /Users/arunbrahma/Desktop/AltGAN/codepad/vs-code\n[log] %c INFO color: #33f Settings Sync: Account status changed from uninitialized to unavailable\n[log] %c INFO color: #33f Started local extension host with pid 99662.\n[error] Failed to load resource: the server responded with a status of 404 ()\n[log] %c INFO color: #33f [perf] Render performance baseline is 12ms",
+      "ok": true
+    },
+    {
+      "label": "page log confirms extension host started",
+      "value": "[log] %c INFO color: #33f Started initializing default profile extensions in extensions installation folder. file:///var/folders/js/nf3pspjn50ncg5_p5285npsm0000gn/T/hsr-pw-exts-aeY1lG\n[log] %c INFO color: #33f Completed initializing default profile extensions in extensions installation folder. file:///var/folders/js/nf3pspjn50ncg5_p5285npsm0000gn/T/hsr-pw-exts-aeY1lG\n[log] %c INFO color: #33f Loading development extension at /Users/arunbrahma/Desktop/AltGAN/codepad/vs-code\n[log] %c INFO color: #33f Settings Sync: Account status changed from uninitialized to unavailable\n[log] %c INFO color: #33f Started local extension host with pid 99662.\n[error] Failed to load resource: the server responded with a status of 404 ()\n[log] %c INFO color: #33f [perf] Render performance baseline is 12ms",
+      "ok": true
+    },
+    {
+      "label": "CodeLens anchors present",
+      "value": [
+        "▶ Run File",
+        "▶ Run Request — health",
+        "▶ Run Request — list users",
+        "▶ Run Request — create user",
+        "▶ Run Request — deliberate failure"
+      ],
+      "ok": true
+    },
+    {
+      "label": "Testing tree shows example.http",
+      "value": [
+        "example.http",
+        "health",
+        "list users",
+        "create user",
+        "deliberate failure"
+      ],
+      "ok": true
+    },
+    {
+      "label": "Testing tree shows \"health\" request",
+      "value": [
+        "example.http",
+        "health",
+        "list users",
+        "create user",
+        "deliberate failure"
+      ],
+      "ok": true
+    },
+    {
+      "label": "Testing tree shows \"create user\"",
+      "value": [
+        "example.http",
+        "health",
+        "list users",
+        "create user",
+        "deliberate failure"
+      ],
+      "ok": true
+    },
+    {
+      "label": "Testing tree shows \"deliberate failure\"",
+      "value": [
+        "example.http",
+        "health",
+        "list users",
+        "create user",
+        "deliberate failure"
+      ],
+      "ok": true
+    },
+    {
+      "label": "status bar shows HTTP Smoke summary",
+      "value": " HTTP Smoke: 3✓ 1✗ · 173 ms",
+      "ok": true
+    },
+    {
+      "label": "3 tests passed",
+      "value": 3,
+      "ok": true
+    },
+    {
+      "label": "1 test failed",
+      "value": 1,
+      "ok": true
+    }
+  ],
+  "statusBar": " HTTP Smoke: 3✓ 1✗ · 173 ms",
+  "testItems": [
+    "example.http",
+    "health",
+    "list users",
+    "create user",
+    "deliberate failure"
+  ],
+  "windowTitle": "[Extension Development Host] example.http — hsr-playwright-zXM21h"
+}
