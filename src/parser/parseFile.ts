@@ -27,21 +27,21 @@ export function parseHttpFile(rawText: string): ParsedFile {
       if (CHAINING_RE.test(line)) {
         diagnostics.push({
           line: block.startLine + i,
-          message: 'chaining reference not supported in V1 — literal text will be sent',
+          message: 'chaining reference not supported — literal text will be sent',
           severity: 'warning'
         });
       }
       if (PROMPT_RE.test(line)) {
         diagnostics.push({
           line: block.startLine + i,
-          message: '# @prompt is not supported in V1 — the variable will be unresolved',
+          message: '# @prompt is not supported — the variable will be unresolved',
           severity: 'warning'
         });
       }
       if (SETTING_RE.test(line)) {
         diagnostics.push({
           line: block.startLine + i,
-          message: 'per-request settings (# @settingName) are not supported in V1 — ignored',
+          message: 'per-request settings (# @settingName) are not supported — ignored',
           severity: 'warning'
         });
       }

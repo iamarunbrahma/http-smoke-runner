@@ -1,9 +1,10 @@
 # HTTP Smoke Runner
 
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/arunbrahma.http-smoke-runner?color=blue&label=Marketplace&logo=visualstudiocode)](https://marketplace.visualstudio.com/items?itemName=arunbrahma.http-smoke-runner)
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/arunbrahma.http-smoke-runner?label=Installs)](https://marketplace.visualstudio.com/items?itemName=arunbrahma.http-smoke-runner)
-[![Rating](https://img.shields.io/visual-studio-marketplace/r/arunbrahma.http-smoke-runner?label=Rating)](https://marketplace.visualstudio.com/items?itemName=arunbrahma.http-smoke-runner&ssr=false#review-details)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
+[![Marketplace Version](https://img.shields.io/github/package-json/v/iamarunbrahma/http-smoke-runner?logo=visualstudiocode&label=Marketplace&color=007ACC)](https://marketplace.visualstudio.com/items?itemName=arunbrahma.http-smoke-runner)
+[![VS Code](https://img.shields.io/badge/VS%20Code-%5E1.90.0-007ACC?logo=visualstudiocode&logoColor=white)](https://code.visualstudio.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](./LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/iamarunbrahma/http-smoke-runner?logo=github&label=Stars)](https://github.com/iamarunbrahma/http-smoke-runner)
 
 > Run `.http` and `.rest` files like smoke tests — pass/fail, latency, and jump-to-failure — directly in VS Code's Testing panel.
 
@@ -92,18 +93,6 @@ All assertions are `#` comment lines (so the file stays valid for REST Client). 
 | Process env | `{{$processEnv VAR}}` | `Authorization: Bearer {{$processEnv TOKEN}}` |
 | Dotenv | `{{$dotenv VAR}}` — first use prompts once per workspace | `api_key: {{$dotenv API_KEY}}` |
 
-## Not supported in V1
-
-Detected and surfaced as **editor warnings** so nothing fails silently:
-
-- Request chaining: `{{login.response.body.$.token}}`
-- Prompt variables: `# @prompt`
-- Auth helpers: OAuth, AAD / Microsoft Identity Platform, AWS Sig v4, Digest, SSL client certs
-- Cookie jar, settings-based environments, run history
-- CI runner, CLI mode
-
-Need one of these? Open an issue — I'm tracking demand for v0.2 scope.
-
 ## Development
 
 ```bash
@@ -112,11 +101,9 @@ cd http-smoke-runner
 npm install
 
 npm test          # 76 unit tests — parser, assertions, HTTP runner (with a live stub server)
+npm run typecheck # tsc --noEmit
 npm run build     # bundle with esbuild → dist/extension.js
 npm run package   # produce a .vsix for local install
-
-# End-to-end UI test against a real VS Code window (via Playwright's Electron driver):
-node test/playwright/run-vscode.mjs
 ```
 
 **Repo layout**
@@ -127,12 +114,11 @@ node test/playwright/run-vscode.mjs
 | `src/runner/` | Smoke runner (`fetch` + `AbortController`), assertion engine, JSON path, header redactor |
 | `src/testing/` | `vscode.tests.createTestController` wiring + run handler |
 | `src/codeLens/`, `src/diagnostics/`, `src/statusBar.ts` | Editor integrations |
-| `test/fixtures/` | Stub HTTP server + sample `.http` file used by unit + Playwright tests |
-| `test/playwright/` | End-to-end Electron-mode browser automation against real VS Code |
+| `test/fixtures/` | Stub HTTP server + sample `.http` file used by unit tests |
 
 ## Contributing
 
-Bug reports and feature requests welcome — [open an issue](https://github.com/iamarunbrahma/http-smoke-runner/issues). See the `## Not supported in V1` list above for the current scope boundary; if you need something that's on that list, tell me what the use case is and I'll prioritize.
+Bug reports and feature requests welcome — [open an issue](https://github.com/iamarunbrahma/http-smoke-runner/issues).
 
 ## License
 
