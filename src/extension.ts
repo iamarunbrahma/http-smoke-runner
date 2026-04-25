@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import {
   createHttpTestController,
+  forgetFile,
   getOrCreateFileItem,
   reparseOne
 } from './testing/testController.ts';
@@ -30,7 +31,13 @@ export function activate(context: vscode.ExtensionContext): HttpSmokeApi {
   context.subscriptions.push(
     vscode.workspace.onDidOpenTextDocument(reparseIfHttp),
     vscode.workspace.onDidChangeTextDocument(e => reparseIfHttp(e.document)),
-    vscode.workspace.onDidSaveTextDocument(reparseIfHttp)
+    vscode.workspace.onDidSaveTextDocument(reparseIfHttp),
+    vscode.workspace.onDidDeleteFiles(e => {
+      for (const uri of e.files) {
+        forgetFile(uri);
+        controller.items.delete(uri.toString());
+      }
+    })
   );
 
   // CodeLens

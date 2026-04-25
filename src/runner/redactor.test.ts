@@ -4,10 +4,10 @@ import { redactHeaders } from './redactor.ts';
 
 test('redacts authorization (case-insensitive)', () => {
   assert.deepEqual(redactHeaders([['Authorization', 'Bearer abcdefghij']]), [
-    ['Authorization', 'Bear***']
+    ['Authorization', '***']
   ]);
   assert.deepEqual(redactHeaders([['authorization', 'Bearer abcdefghij']]), [
-    ['authorization', 'Bear***']
+    ['authorization', '***']
   ]);
 });
 
@@ -16,15 +16,17 @@ test('redacts multiple set-cookie values', () => {
     ['Set-Cookie', 'session=abc; Path=/'],
     ['Set-Cookie', 'csrf=xyz']
   ]);
-  assert.ok(r.every(([, v]) => v.endsWith('***')));
+  assert.ok(r.every(([, v]) => v === '***'));
 });
 
 test('custom redaction list supersedes defaults', () => {
   const r = redactHeaders([['X-Special', 'supersecret']], ['x-special']);
-  assert.equal(r[0][1], 'supe***');
+  assert.equal(r[0][1], '***');
 });
 
-test('short values are fully masked', () => {
+test('redacted values reveal nothing about the original', () => {
+  assert.equal(redactHeaders([['Authorization', 'sk_live_abcdef']])[0][1], '***');
+  assert.equal(redactHeaders([['Authorization', 'AKIAEXAMPLEKEY']])[0][1], '***');
   assert.equal(redactHeaders([['Authorization', 'abc']])[0][1], '***');
 });
 

@@ -17,6 +17,8 @@ const BODY_PATH_MATCH = /^body\s+path\s+(\S+)\s+matches\s+\/(.+)\/\s*$/i;
 
 const TIME_LT = /^time\s*<\s*(\d+)\s*(ms|s)\s*$/i;
 
+const MAX_REGEX_PATTERN_LEN = 256;
+
 export function parseExpectLine(raw: string): Predicate | null {
   const rest = raw.replace(EXPECT_PREFIX, '').trim();
   let m: RegExpMatchArray | null;
@@ -47,8 +49,10 @@ export function parseExpectLine(raw: string): Predicate | null {
   }
 
   if ((m = rest.match(BODY_PATH_MATCH))) {
+    const src = m[2];
+    if (src.length > MAX_REGEX_PATTERN_LEN) return null;
     try {
-      return { kind: 'bodyPath', path: m[1], op: 'matches', pattern: new RegExp(m[2]) };
+      return { kind: 'bodyPath', path: m[1], op: 'matches', pattern: new RegExp(src) };
     } catch {
       return null;
     }

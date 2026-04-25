@@ -46,6 +46,7 @@ export async function reparseOne(
   const bytes = await vscode.workspace.fs.readFile(fileItem.uri);
   const text = new TextDecoder('utf-8').decode(bytes);
   const { requests } = parseHttpFile(text);
+  forgetFile(fileItem.uri);
   fileItem.children.replace([]);
   for (const req of requests) {
     const id = `${fileItem.uri.toString()}#${req.startLine}`;
@@ -53,5 +54,12 @@ export async function reparseOne(
     child.range = new vscode.Range(req.startLine - 1, 0, req.endLine - 1, 0);
     fileItem.children.add(child);
     requestById.set(id, { uri: fileItem.uri, request: req });
+  }
+}
+
+export function forgetFile(uri: vscode.Uri): void {
+  const prefix = `${uri.toString()}#`;
+  for (const id of requestById.keys()) {
+    if (id.startsWith(prefix)) requestById.delete(id);
   }
 }

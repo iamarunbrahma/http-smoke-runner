@@ -1,6 +1,8 @@
 import { evaluateJsonPath } from './jsonPath.ts';
 import type { Predicate, FailureDetail } from '../types.ts';
 
+const MAX_REGEX_INPUT_BYTES = 64 * 1024;
+
 export interface ResponseSnapshot {
   status: number;
   /** Header names lowercased; multi-value headers joined by ", " per RFC. */
@@ -111,7 +113,9 @@ export function evaluatePredicates(
             });
           }
         } else {
-          const any = values.some(v => typeof v === 'string' && p.pattern.test(v));
+          const any = values.some(
+            v => typeof v === 'string' && p.pattern.test(capForRegex(v))
+          );
           if (!any) {
             failures.push({
               summary: `expected ${p.path} to match ${p.pattern}, got ${JSON.stringify(values[0] ?? '<missing>')}`,
@@ -133,6 +137,10 @@ export function evaluatePredicates(
     }
   }
   return { ok: failures.length === 0, failures };
+}
+
+function capForRegex(s: string): string {
+  return s.length > MAX_REGEX_INPUT_BYTES ? s.slice(0, MAX_REGEX_INPUT_BYTES) : s;
 }
 
 function deepEquals(a: unknown, b: unknown): boolean {

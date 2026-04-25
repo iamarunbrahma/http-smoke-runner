@@ -18,7 +18,6 @@ export function redactHeaders(
   );
 }
 
-function mask(value: string): string {
-  if (value.length <= 4) return '***';
-  return value.slice(0, 4) + '***';
+function mask(_value: string): string {
+  return '***';
 }
