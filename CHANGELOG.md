@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.1] - 2026-05-04
+
+### Fixed
+- "command 'testing.runTests' not found" error when running a request via CodeLens or the command palette ([#1](https://github.com/iamarunbrahma/http-smoke-runner/issues/1)). `httpSmokeRunner.runFile` and `httpSmokeRunner.runRequest` now invoke the test run handler directly instead of dispatching to a non-existent built-in command.
+
 ## [0.1.0] - 2026-04-25
 
 ### Added

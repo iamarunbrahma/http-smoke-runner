@@ -19,7 +19,22 @@ export function activate(context: vscode.ExtensionContext): HttpSmokeApi {
   context.subscriptions.push(controller);
 
   const runHandler = makeRunHandler(context, controller);
-  controller.createRunProfile('Run', vscode.TestRunProfileKind.Run, runHandler, true);
+  const runProfile = controller.createRunProfile(
+    'Run',
+    vscode.TestRunProfileKind.Run,
+    runHandler,
+    true
+  );
+
+  const startRun = async (include: vscode.TestItem[]): Promise<void> => {
+    const request = new vscode.TestRunRequest(include, undefined, runProfile);
+    const tokenSource = new vscode.CancellationTokenSource();
+    try {
+      await runHandler(request, tokenSource.token);
+    } finally {
+      tokenSource.dispose();
+    }
+  };
 
   // Re-parse file items on open / change / save.
   const reparseIfHttp = async (doc: vscode.TextDocument): Promise<void> => {
@@ -75,7 +90,7 @@ export function activate(context: vscode.ExtensionContext): HttpSmokeApi {
       if (!target) return;
       const item = getOrCreateFileItem(controller, target);
       await reparseOne(controller, item);
-      await vscode.commands.executeCommand('testing.runTests', { include: [item] });
+      await startRun([item]);
     }),
     vscode.commands.registerCommand('httpSmokeRunner.runWorkspace', () => {
       return vscode.commands.executeCommand('testing.runAll');
@@ -89,7 +104,7 @@ export function activate(context: vscode.ExtensionContext): HttpSmokeApi {
         item.children.forEach(c => children.push(c));
         const child = children.find(c => c.range?.start.line === line);
         if (child) {
-          await vscode.commands.executeCommand('testing.runTests', { include: [child] });
+          await startRun([child]);
         }
       }
     )

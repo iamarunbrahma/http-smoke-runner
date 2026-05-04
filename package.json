@@ -3,7 +3,7 @@
   "displayName": "HTTP Smoke Runner",
   "description": "Run .http and .rest files like smoke tests — pass/fail, latency, jump-to-failure, directly in VS Code.",
   "publisher": "arunbrahma",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "license": "MIT",
   "engines": {
