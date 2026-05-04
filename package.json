@@ -1,7 +1,7 @@
 {
   "name": "http-smoke-runner",
   "displayName": "HTTP Smoke Runner",
-  "description": "Run .http and .rest files like smoke tests — pass/fail, latency, jump-to-failure, directly in VS Code.",
+  "description": "Turn your .http files into runnable smoke tests, right inside VS Code.",
   "publisher": "arunbrahma",
   "version": "0.1.1",
   "private": false,
