@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.1.2] - 2026-05-05
+
+### Changed
+- Maintenance release: regenerated package-lock.json, no functional changes.
+
 ## [0.1.1] - 2026-05-04
 
 ### Fixed

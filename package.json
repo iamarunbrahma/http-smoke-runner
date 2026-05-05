@@ -3,7 +3,7 @@
   "displayName": "HTTP Smoke Runner",
   "description": "Turn your .http files into runnable smoke tests, right inside VS Code.",
   "publisher": "arunbrahma",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": false,
   "license": "MIT",
   "engines": {
